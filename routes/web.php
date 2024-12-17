@@ -17,7 +17,7 @@ Route::get('/job', function(){
 
 Route::get('/job/{id}', function($id){
     $targetJob = Job::find($id);
-    
+    dd($targetJob);
     return view('job', ['jobs'=>[$targetJob]]);
 });
 
