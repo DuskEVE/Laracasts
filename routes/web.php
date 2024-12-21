@@ -12,12 +12,14 @@ Route::get('/', function () {
 });
 
 Route::get('/job', function(){
-    return view('job', ['jobs'=>Job::all()]);
+    // $jobs = Job::all();
+    $jobs = Job::with('employer')->get();
+    return view('job', ['jobs'=>$jobs]);
 });
 
 Route::get('/job/{id}', function($id){
     $targetJob = Job::find($id);
-    dd($targetJob);
+    // dd($targetJob);
     return view('job', ['jobs'=>[$targetJob]]);
 });
 
