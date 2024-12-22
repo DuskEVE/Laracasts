@@ -13,7 +13,7 @@ Route::get('/', function () {
 
 Route::get('/job', function(){
     // $jobs = Job::all();
-    $jobs = Job::with('employer')->get();
+    $jobs = Job::with('employer')->paginate(3);
     return view('job', ['jobs'=>$jobs]);
 });
 
