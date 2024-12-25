@@ -11,16 +11,30 @@ Route::get('/', function () {
     );
 });
 
-Route::get('/job', function(){
+Route::get('/jobs', function(){
     // $jobs = Job::all();
-    $jobs = Job::with('employer')->paginate(3);
-    return view('job', ['jobs'=>$jobs]);
+    $jobs = Job::with('employer')->latest()->paginate(3);
+    return view('jobs.index', ['jobs'=>$jobs]);
 });
 
-Route::get('/job/{id}', function($id){
+Route::get('/jobs/create', function(){
+    return view('jobs.create');
+});
+
+Route::get('/jobs/{id}', function($id){
     $targetJob = Job::find($id);
     // dd($targetJob);
-    return view('job', ['jobs'=>[$targetJob]]);
+    return view('jobs.show', ['job'=>$targetJob]);
+});
+
+Route::post('/jobs', function(){
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1
+    ]);
+
+    return redirect('/jobs');;
 });
 
 Route::get('/about', function () {
